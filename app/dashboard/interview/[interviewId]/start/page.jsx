@@ -1,11 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { db } from '../../../../../utils/db';
-import { MockInterview } from '../../../../../utils/schema';
+import { db } from '@/utils/db';
+import { MockInterview } from '@/utils/schema';
 import { eq } from 'drizzle-orm';
 import QuestionsSection from './_components/QuestionsSection';
 import RecordAnswerSection from './_components/RecordAnswerSection';
-import { Button } from '../../../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 function StartInterview({params}) {

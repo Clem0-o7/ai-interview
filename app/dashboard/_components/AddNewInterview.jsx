@@ -6,14 +6,14 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "E:/mockclone/ai_interview_mocker/components/ui/dialog.jsx";
-import { Button } from '../../../components/ui/button';
-import { Input } from '../../../components/ui/input';
-import { Textarea } from '../../../components/ui/textarea';
-import { chatSession } from '../../../utils/GeminiAIModal';
+} from "@/components/ui/dialog.jsx";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { chatSession } from '@/utils/GeminiAIModal';
 import { LoaderCircle } from 'lucide-react';
-import { MockInterview } from '../../../utils/schema';
-import {db} from '../../../utils/db';
+import { MockInterview } from '@/utils/schema';
+import {db} from '@/utils/db';
 import { v4 as uuidv4 } from 'uuid';
 import { useUser } from '@clerk/nextjs';
 import moment from 'moment';
@@ -37,12 +37,9 @@ function AddNewInterview() {
     console.log(jobPosition, jobDesc, jobExperience);
 
     const InputPrompt =
-      "Job position: " + jobPosition +
-      " ,Job Description: " + jobDesc +
-      " , Years of Experience: " + jobExperience +
-      ", Depends on Job Position , Job Description & Years of experience give us " +
-      process.env.NEXT_PUBLIC_INTERVIEW_QUESTION +
-      " interview question along with Answer in JSON format , Give us question and answer field on JSON";
+  `Job position: ${jobPosition}, Job Description: ${jobDesc}, Years of Experience: ${jobExperience}.
+   Based on the job position, description, and experience, provide ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION} interview questions and answers in JSON format. 
+   The output should contain an array of objects, with "question" and "answer" fields only.`;
 
       const result=await chatSession.sendMessage(InputPrompt);
 
@@ -87,7 +84,7 @@ function AddNewInterview() {
       <Dialog open={openDailog}>
         <DialogContent className="max-w-2xl bg-white">
           <DialogHeader>
-            <DialogTitle className="text-2xl">Tell us more about your job interviewing</DialogTitle>
+            <DialogTitle className="text-2xl">Tell us more about you job interviewing</DialogTitle>
             <DialogDescription>
               <form onSubmit={onSubmit}>
                 <div>

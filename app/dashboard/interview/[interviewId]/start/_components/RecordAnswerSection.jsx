@@ -2,13 +2,13 @@
 import React, { useState, useEffect, use } from "react";
 import Webcam from "react-webcam";
 import Image from "next/image";
-import { Button } from "../../../../../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import useSpeechToText from "react-hook-speech-to-text";
 import { Mic } from "lucide-react";
 import { toast } from "sonner";
-import { chatSession } from "E:/mockclone/ai_interview_mocker/utils/GeminiAIModal.js";
-import { db} from "../../../../../../utils/db";
-import { UserAnswer } from "../../../../../../utils/schema";
+import { chatSession } from "@/utils/GeminiAIModal.js";
+import { db} from "@/utils/db";
+import { UserAnswer } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import moment from 'moment';
 
@@ -62,8 +62,8 @@ function RecordAnswerSection({mockInterviewQuestion,activeQuestionIndex,intervie
     setLoading(true);
 
     const feedbackPrompt = "Question:"+mockInterviewQuestion[activeQuestionIndex]?.question+
-    ", User Answer:"+userAnswer+",Depends on question and user answer for given interview question"+
-    " please give us rating for answer and feedback as area of improvement if any"+
+    ", User Answer:"+userAnswer+",Depending on the question and the user answer for given interview question"+
+    " please give us rating between 1 to 5 for answer and feedback as area of improvement if any"+
     "in just 3 to 5 lines to improve it in JSON format with rating field and feedback field";
 
     const result=await chatSession.sendMessage(feedbackPrompt);
@@ -74,7 +74,7 @@ function RecordAnswerSection({mockInterviewQuestion,activeQuestionIndex,intervie
 
     const resp = await db.insert(UserAnswer)
     .values({
-      mockIdRef: interviewData?.mockId, // Ensure this is properly defined
+      mockIdRef: interviewData?.mockId, 
       question: mockInterviewQuestion[activeQuestionIndex]?.question,
       correctAns: mockInterviewQuestion[activeQuestionIndex]?.answer,
       userAns: userAnswer,
@@ -94,7 +94,7 @@ function RecordAnswerSection({mockInterviewQuestion,activeQuestionIndex,intervie
   }
 
   if (!isClient) {
-    return null; // Return null on the server-side to avoid rendering
+    return null; 
   }
 
   return (
